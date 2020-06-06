@@ -42,15 +42,15 @@ class ResultsSchema(ma.Schema):
         fields = ('id','index','grade','subjectCode','batch','yoe','semester','created_at','updated_at')
 
 #Init Schema
-result_schema = ResultsSchema(strict=True)
-results_schema = ResultsSchema(many=True,strict=True)
+result_schema = ResultsSchema()
+results_schema = ResultsSchema(many=True)
 
 #Routes
 @app.route('/results',methods =['GET'])
 def get_results():
     all_results = Results.query.all()
     query_out = results_schema.dump(all_results)
-    return jsonify(query_out.data)
+    return jsonify(query_out)
 
 if __name__ == '__main__':
     app.run(debug=True)
